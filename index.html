@@ -8,15 +8,26 @@
 <script src="assets/auth.js" data-guard></script>
 <style>
 /* 표지 전용 */
-.cover { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 0 10px; border-bottom: 1px solid var(--line); }
-.cover-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .3em; color: var(--accent); text-transform: uppercase; margin-bottom: 26px; }
-.cover-title { font-family: 'Newsreader', serif; font-size: clamp(38px, 6vw, 62px); font-weight: 500; line-height: 1.1; letter-spacing: -.015em; word-break: keep-all; margin-bottom: 24px; }
-.cover-sub { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.7; word-break: keep-all; }
+.cover { position: relative; min-height: 92vh; display: flex; flex-direction: column; padding: 0; overflow: hidden; border-bottom: 2px solid var(--accent); }
+.cover-ctrl { display: flex; align-items: center; gap: 16px; padding: 24px 0 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.cover-ctrl .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex: none; box-shadow: 0 0 0 3px var(--green-soft); }
+.cover-ctrl .sep { flex: 1; height: 1px; background: var(--hair); }
+.cover-ctrl .conf { color: var(--red); }
+.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.cover-ghost { position: absolute; right: -3vw; top: 50%; transform: translateY(-50%); font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(220px, 40vw, 560px); line-height: .8; color: var(--accent); opacity: .04; z-index: 0; pointer-events: none; user-select: none; letter-spacing: -.04em; }
+.cover-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .28em; color: var(--accent); text-transform: uppercase; margin-bottom: 30px; display: inline-flex; align-items: center; gap: 12px; }
+.cover-eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--accent); display: inline-block; }
+.cover-title { font-family: 'Newsreader', serif; font-size: clamp(42px, 6.4vw, 76px); font-weight: 500; line-height: 1.04; letter-spacing: -.022em; word-break: keep-all; margin-bottom: 28px; }
+.cover-title em { font-style: italic; color: var(--accent); }
+.cover-sub { font-size: 17.5px; color: var(--ink-soft); max-width: 620px; line-height: 1.78; word-break: keep-all; }
 .cover-sub strong { color: var(--ink); font-weight: 600; }
-.cover-meta { display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
-.cover-meta div { font-size: 13px; }
-.cover-meta .k { color: var(--dim); letter-spacing: .04em; margin-bottom: 4px; text-transform: uppercase; font-size: 11px; font-weight: 700; }
-.cover-meta .v { color: var(--ink); font-size: 15px; font-variant-numeric: tabular-nums; }
+.cover-meta { display: grid; grid-template-columns: repeat(4, auto); gap: 0; margin-top: 48px; border-top: 1px solid var(--hair); max-width: 640px; }
+.cover-meta div { font-size: 13px; padding: 18px 26px 4px 0; border-right: 1px solid var(--line); padding-left: 22px; }
+.cover-meta div:first-child { padding-left: 0; }
+.cover-meta div:last-child { border-right: 0; }
+.cover-meta .k { color: var(--dim); letter-spacing: .12em; margin-bottom: 6px; text-transform: uppercase; font-size: 10px; font-weight: 800; }
+.cover-meta .v { color: var(--ink); font-size: 15px; font-variant-numeric: tabular-nums; font-family: 'Newsreader', serif; }
+@media (max-width: 760px) { .cover-meta { grid-template-columns: 1fr 1fr; } .cover-ghost { display: none; } }
 </style>
 </head>
 <body>
@@ -24,14 +35,22 @@
 
   <!-- 1 · 첫장 -->
   <section class="cover">
-    <div class="cover-eyebrow">Website Renewal · Vendor Handover</div>
-    <h1 class="cover-title">비앤빛안과 홈페이지<br>리뉴얼 요구사항 전달서</h1>
-    <p class="cover-sub">PC/모바일 통합 반응형 리뉴얼의 <strong>요청사항 · 요구 기능 · 트래킹 자산</strong>을 한 벌로 정리한 개발사 전달 문서입니다. 요약에서 상세, 자산 순으로 읽으면 됩니다.</p>
-    <div class="cover-meta">
-      <div><div class="k">발주</div><div class="v">비쥬웍스</div></div>
-      <div><div class="k">수신</div><div class="v">시그</div></div>
-      <div><div class="k">디자인</div><div class="v">듀당스</div></div>
-      <div><div class="k">작성일</div><div class="v">2026 · 07 · 21</div></div>
+    <div class="cover-ctrl">
+      <span class="dot"></span><span>Doc. BNV-RENEWAL / REV. 2026·07</span>
+      <span class="sep"></span>
+      <span class="conf">Confidential</span>
+    </div>
+    <div class="cover-body">
+      <div class="cover-ghost">B</div>
+      <div class="cover-eyebrow">Website Renewal · Vendor Handover</div>
+      <h1 class="cover-title">비앤빛안과 홈페이지<br><em>리뉴얼</em> 요구사항 전달서</h1>
+      <p class="cover-sub">PC/모바일 통합 반응형 리뉴얼의 <strong>요청사항 · 요구 기능 · 트래킹 자산</strong>을 한 벌로 정리한 개발사 전달 문서입니다. 요약에서 상세, 자산 순으로 읽으면 됩니다.</p>
+      <div class="cover-meta">
+        <div><div class="k">발주</div><div class="v">비쥬웍스</div></div>
+        <div><div class="k">수신</div><div class="v">시그</div></div>
+        <div><div class="k">디자인</div><div class="v">듀당스</div></div>
+        <div><div class="k">작성일</div><div class="v">2026 · 07 · 21</div></div>
+      </div>
     </div>
   </section>
 
