@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>심플 요청사항 · 비앤빛 리뉴얼</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/auth.js" data-guard></script>
+</head>
+<body>
+
+<div class="docbar"><div class="docbar-in">
+  <a class="docbar-home" href="index.html">← 목차</a>
+  <nav class="docbar-nav">
+    <a href="1-overview.html">01 개요</a>
+    <a href="3-summary.html" class="on">02 요약</a>
+    <a href="4-requirements.html">03 요구사항</a>
+    <a href="5-tracking.html">04 트래킹</a>
+    <a href="6-seo.html">05 SEO</a>
+    <a href="7-nfr.html">06 NFR</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-eyebrow">02 · Summary</div>
+    <h1 class="page-title">심플 요청사항</h1>
+    <p class="page-sub">목표 · 역할 분담 · 요구 기능 · 예약 · CMS 범위 · 데이터 제공을 <strong>한 장으로 요약</strong>했습니다. 각 요구를 클릭하면 <strong>03 요구사항 정리</strong>의 상세로 이동합니다.</p>
+  </header>
+
+  <main>
+    <!-- 목표 -->
+    <h2 class="sec" id="goal"><span class="n">01</span>프로젝트 목표</h2>
+    <div class="sec-desc">모든 요구가 향하는 공통 방향</div>
+    <ul class="b">
+      <li><strong>운영 독립성</strong> — 콘텐츠·예약·다국어·권한을 운영자가 개발 없이 직접 관리.</li>
+      <li><strong>고객 여정·데이터 주도권</strong> — 탐색→상담·예약→마이페이지를 홈페이지 안에서 완결, 데이터는 당사 축적.</li>
+      <li><strong>반응형 글로벌 플랫폼</strong> — 단일 URL 반응형 · 경로 기반 다국어 · 콘텐츠·표현 분리로 확장.</li>
+      <li><strong>측정 기반</strong> — 검색 노출 · 유입·전환 측정을 오픈 시점부터 (GEO는 선택 견적).</li>
+    </ul>
+
+    <!-- 역할 분담 -->
+    <h2 class="sec" id="roles"><span class="n">02</span>역할 분담</h2>
+    <div class="sec-desc">누가 무엇을 만드나 — 세부 판단의 단일 기준</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:130px">주체</th><th>범위</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag amber">듀당스</span></td><td>브랜드 컨셉·로고·화면 디자인 · <strong>HTML/CSS 퍼블리싱은 참조용</strong></td></tr>
+        <tr><td><span class="tag">시그</span></td><td>퍼블리싱을 참조해 <strong>Next.js 컴포넌트로 재구축</strong> · 인터랙션·라우팅·API 연동·폼·CMS <strong>전부</strong></td></tr>
+        <tr><td><span class="tag green">비쥬웍스</span></td><td>백엔드 API·DB · 데이터 이관 · 인증/CRM 연동 · GA 계정 · 인프라</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="b">
+      <li><strong>결과물</strong> — PC/모바일 통합 <strong>반응형 웹(단일 URL)</strong>, 모바일은 전용 레이아웃 별도 디자인.</li>
+      <li><strong>다국어</strong> — 시그 구축 범위는 <strong>KO + EN</strong>. 중국어·일본어·베트남어 번역·운영은 비쥬웍스.</li>
+    </ul>
+
+    <!-- 요구 기능 -->
+    <h2 class="sec" id="fr"><span class="n">03</span>요구 기능 (FR-01~16)</h2>
+    <div class="sec-desc">우선순위 1~3 순 · 각 요구 클릭 → 04 상세로 이동</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:56px">ID</th><th>요구</th><th style="width:150px">담당</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3">1순위 · 오픈 필수 핵심 — 막히면 오픈 불가</td></tr>
+        <tr><td><code>FR-01</code></td><td><a href="4-requirements.html#FR-01">반응형 웹</a></td><td>시그</td></tr>
+        <tr><td><code>FR-03</code></td><td><a href="4-requirements.html#FR-03">콘텐츠 데이터 연동</a></td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-04</code></td><td><a href="4-requirements.html#FR-04">회원 · 인증</a> (소셜 OAuth 전환)</td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-05</code></td><td><a href="4-requirements.html#FR-05">예약 · 상담 신청</a></td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-13</code></td><td><a href="4-requirements.html#FR-13">웹 분석 · 전환 측정</a> (소급 불가)</td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-14</code></td><td><a href="4-requirements.html#FR-14">쿠키 · 행태정보 동의</a></td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-15</code></td><td><a href="4-requirements.html#FR-15">CMS 콘텐츠 관리</a></td><td>시그</td></tr>
+        <tr><td><code>FR-16</code></td><td><a href="4-requirements.html#FR-16">권한 · 감사 · 개인정보</a></td><td>시그 + 비쥬웍스</td></tr>
+        <tr class="grp"><td colspan="3">2순위 · 필수 — 오픈 범위, 단계 협의 가능</td></tr>
+        <tr><td><code>FR-02</code></td><td><a href="4-requirements.html#FR-02">템플릿 · 토큰 구조</a></td><td>시그</td></tr>
+        <tr><td><code>FR-06</code></td><td><a href="4-requirements.html#FR-06">의료진 · 진료일정</a> (오전/오후만)</td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-07</code></td><td><a href="4-requirements.html#FR-07">다국어 라우팅</a> (KO + EN)</td><td>시그</td></tr>
+        <tr><td><code>FR-10</code></td><td><a href="4-requirements.html#FR-10">SEO 관리</a></td><td>시그</td></tr>
+        <tr><td><code>FR-11</code></td><td><a href="4-requirements.html#FR-11">블로그 이전</a> (WordPress 폐기)</td><td>시그 + 비쥬웍스</td></tr>
+        <tr class="grp"><td colspan="3">3순위 · 후순위 · 선택 — 추후 / 별도 견적</td></tr>
+        <tr><td><code>FR-08</code></td><td><a href="4-requirements.html#FR-08">번역 · 언어팩 관리</a></td><td>시그 + 비쥬웍스</td></tr>
+        <tr><td><code>FR-09</code></td><td><a href="4-requirements.html#FR-09">언어별 배치</a></td><td>시그</td></tr>
+        <tr><td><code>FR-12</code></td><td><a href="4-requirements.html#FR-12">GEO</a> (생성형 AI 검색)</td><td><span class="tag red">선택 견적</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- 예약·인증 -->
+    <h2 class="sec" id="booking"><span class="n">04</span>예약 · 인증</h2>
+    <div class="sec-desc">미팅 확정 사항</div>
+    <ul class="b">
+      <li><strong>예약 시스템</strong> — 현 마루앱 관리자를 <strong>대체·재구축</strong> (데이터 마이그레이션 포함).</li>
+      <li><strong>예약 정책</strong> — 시간대별 최대수량 등 <strong>단순 정책으로 1차 구현</strong>.</li>
+      <li><strong>원장 스케줄</strong> — 오전/오후 가능 여부만 (검안사 중심, 상세 스케줄 불필요).</li>
+      <li><strong>예약 데이터</strong> — CRM으로 <strong>전달만</strong>, <strong>알림톡 발송은 CRM에서 처리</strong>.</li>
+      <li><strong>CRM 연동 방식 · 본인인증 업체·비용 · 카카오 자체 OAuth 전환</strong> — 비쥬웍스가 확정·제공.</li>
+    </ul>
+
+    <!-- CMS 범위 -->
+    <h2 class="sec" id="cms"><span class="n">05</span>CMS 관리 범위</h2>
+    <div class="sec-desc">업로드형 콘텐츠 = CMS · 고정 콘텐츠 = 하드코딩</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:110px">GNB</th><th>페이지</th><th style="width:130px">관리 방식</th></tr></thead>
+      <tbody>
+        <tr><td>홈</td><td>메인 배너 · 홈 섹션</td><td>하드코딩</td></tr>
+        <tr><td>비앤빛안과</td><td>원장단 · AI검사 · 수술시스템 · 사후케어 · 공지·언론보도 · ON AIR · 수상 · 연구·논문 · 후기 4종</td><td><strong>CMS</strong> (업로드형)</td></tr>
+        <tr><td>비앤빛안과</td><td>진료시간·오시는길 · 시작과 성장</td><td>하드코딩(정적)</td></tr>
+        <tr><td>시력교정</td><td>시력교정술 비교 외 시술 소개 9종</td><td>하드코딩(정적)</td></tr>
+        <tr><td>전문분야</td><td>백내장 · 드림렌즈 · 안질환 · 안종합검진</td><td>하드코딩(정적)</td></tr>
+        <tr><td>상담·예약</td><td>상담신청 · 검사예약 · 제휴예약 (폼)</td><td>하드코딩(기능)</td></tr>
+        <tr><td>이벤트</td><td>이벤트 목록·상세</td><td><strong>CMS</strong> (게시판형)</td></tr>
+        <tr><td>마이페이지</td><td>로그인 · 회원 · 계정·예약·상담내역 (후기작성→CMS)</td><td>하드코딩(기능)</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="b">
+      <li><strong>전제</strong> — 하드코딩 영역도 나중에 CMS로 승격 가능한 구조(콘텐츠·표현 분리)로 구축.</li>
+    </ul>
+
+    <!-- 데이터·소스 -->
+    <h2 class="sec" id="data"><span class="n">06</span>데이터 · 소스 제공</h2>
+    <div class="sec-desc">구조는 주되 원본 데이터는 주지 않는다 — 시그는 레거시 코드 재사용 아님</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:170px">전달물</th><th>방법</th><th style="width:100px">개인정보</th></tr></thead>
+      <tbody>
+        <tr><td>DB 스키마(DDL)</td><td><code>mysqldump --no-data</code> — 테이블 구조만</td><td>0건</td></tr>
+        <tr><td>마스킹 샘플 데이터</td><td>테이블당 소량(50~100행) · PII 가림/가짜값</td><td>마스킹</td></tr>
+        <tr><td>API 명세 + mock</td><td>OpenAPI/JSON Schema (비쥬웍스 제공 · 진짜 계약)</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="b">
+      <li><strong>예약(마루앱) 스키마</strong> — 재구축 핵심 참고 자료.</li>
+      <li><strong>원본 전량 이관</strong> — 비쥬웍스 내부에서만 (시그 환경 밖 반출 금지). 레거시 소스는 필요 시 일부만 읽기용.</li>
+      <li><strong>전달 채널</strong> — 개인 GitHub 금지 · 암호화 패키지(비번 별도) · 민감/비민감 2분리.</li>
+    </ul>
+
+    <!-- 꼭 챙길 것 -->
+    <h2 class="sec" id="critical"><span class="n">07</span>꼭 챙길 것</h2>
+    <div class="sec-desc">일정·견적의 크리티컬 포인트</div>
+    <div class="note warn">
+      <b>착수 전 / 오픈 시점 필수</b>
+      <ul>
+        <li><strong>측정(FR-13)은 소급 불가</strong> — 오픈 시점 미동작 시 그 기간 데이터 영구 손실. dataLayer·전환 이벤트 규격 착수 시점 합의.</li>
+        <li><strong>회원 71,580명 · 소셜 8,834명 마이그레이션</strong> — 카카오 자체 OAuth 전환, 식별자 매핑 실패 시 로그인 불가. (비쥬웍스 선행)</li>
+        <li><strong>예약 슬롯 모델 선행</strong> — 의료진 슬롯 규칙은 SOFTCRM 분석 후 제공. 대기 구간을 일정에 반영.</li>
+        <li><strong>API 규격·mock 서버</strong> — 착수 전 비쥬웍스 제공 (없으면 연동 대기).</li>
+      </ul>
+    </div>
+
+    <div class="pager">
+      <a class="prev" href="1-overview.html"><div class="dir">← 이전</div><div class="t">01 사업 개요</div></a>
+      <a class="next" href="4-requirements.html"><div class="dir">다음 →</div><div class="t">03 요구사항 정리</div></a>
+    </div>
+
+    <div class="foot">비앤빛안과 홈페이지 리뉴얼 · 심플 요청사항 · 2026-07-21</div>
+  </main>
+</div>
+</body>
+</html>

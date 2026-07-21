@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GA · GTM · 광고 트래킹 코드 · 비앤빛 리뉴얼</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/auth.js" data-guard></script>
+</head>
+<body>
+
+<div class="docbar"><div class="docbar-in">
+  <a class="docbar-home" href="index.html">← 목차</a>
+  <nav class="docbar-nav">
+    <a href="1-overview.html">01 개요</a>
+    <a href="3-summary.html">02 요약</a>
+    <a href="4-requirements.html">03 요구사항</a>
+    <a href="5-tracking.html" class="on">04 트래킹</a>
+    <a href="6-seo.html">05 SEO</a>
+    <a href="7-nfr.html">06 NFR</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-eyebrow">04 · Tracking Assets</div>
+    <h1 class="page-title">GA · GTM · 광고 트래킹 코드</h1>
+    <p class="page-sub"><strong>레거시 소스·DB에서 직접 추출</strong>한 트래킹 자산입니다. 계정 접근 없이 확보 가능한 범위를 먼저 채웠고, 계정에서만 얻는 항목은 별도 표시했습니다. <a href="4-requirements.html#FR-13" style="color:var(--accent);border-bottom:1px solid #cfd6df;">FR-13 웹 분석·전환 측정</a> 연계.</p>
+  </header>
+
+  <main>
+    <!-- 1 인벤토리 -->
+    <h2 class="sec" id="inv"><span class="n">01</span>트래킹 코드 인벤토리</h2>
+    <div class="sec-desc">레거시 소스 실측 · 비백업 파일 기준</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:150px">매체</th><th style="width:200px">ID</th><th style="width:96px">상태</th><th>위치</th></tr></thead>
+      <tbody>
+        <tr><td>Google 태그관리자</td><td><code>GTM-M4XZMV25</code></td><td><span class="tag green">현재</span></td><td>index.php (PC 메인) · 블로그</td></tr>
+        <tr><td>Google 태그관리자</td><td><code>GTM-MGSNXZL</code></td><td><span class="tag green">현재</span></td><td>PC 헤더</td></tr>
+        <tr><td>Google 태그관리자</td><td><code>GTM-W89WCNW</code></td><td><span class="tag green">현재</span></td><td>모바일 헤더 · 블로그</td></tr>
+        <tr><td>Google Analytics 4</td><td><code>G-L4PFT21W8Z</code></td><td><span class="tag amber">확인</span></td><td>블로그 헤더 백업 — 현재 GTM 경유 추정</td></tr>
+        <tr><td>Universal Analytics</td><td><code>UA-125155338</code> (-1·-3·-4·-6)</td><td><span class="tag red">종료</span></td><td>2023-07 GA 서비스 종료 · 참고용</td></tr>
+        <tr><td>Google Ads 전환</td><td><code>AW-972174457</code></td><td><span class="tag green">현재</span></td><td>상담·전화·카톡 전환</td></tr>
+        <tr><td>Google Ads 전환</td><td><code>AW-755726486</code></td><td><span class="tag green">현재</span></td><td>제휴 예약 전환</td></tr>
+        <tr><td>Meta 픽셀</td><td><code>1442431386477624</code></td><td><span class="tag green">현재</span></td><td>공통 헤더</td></tr>
+        <tr><td>Meta 픽셀 (제휴)</td><td><code>1833565096790086</code></td><td><span class="tag green">현재</span></td><td>partner-reserv.php</td></tr>
+        <tr><td>Meta 픽셀 (구)</td><td><code>473706290163000</code></td><td><span class="tag red">폐기</span></td><td>백업 파일에만 존재</td></tr>
+        <tr><td>카카오 픽셀</td><td><code>7714112611588392209</code></td><td><span class="tag green">현재</span></td><td>상담·전화·제휴</td></tr>
+        <tr><td>네이버 전환(wcs)</td><td><code>s_47f96e05cce0</code></td><td><span class="tag green">현재</span></td><td>전 페이지</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note warn">
+      <b>확정 전 1회 대조</b>
+      레거시 헤더 include가 여러 벌(<code>front_head</code>·<code>Tseo_*</code>·<code>seo_*</code>·<code>_bakup*</code>)로 갈라져 있습니다. 위는 비백업 파일 기준이며, <strong>라이브 페이지 소스 대조 1회</strong>로 현재 활성 조합을 최종 확정하세요.
+    </div>
+
+    <!-- 2 전환 페이지 -->
+    <h2 class="sec" id="conv"><span class="n">02</span>전환이 걸린 페이지</h2>
+    <div class="sec-desc">하드코딩 전환 = 신규 전환 이벤트 후보</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:150px">전환</th><th style="width:280px">레거시 페이지</th><th>매체 태그</th></tr></thead>
+      <tbody>
+        <tr><td>상담 신청 완료</td><td><code>counsel/online_step1.php</code></td><td>Ads · Meta · 카카오 · 네이버 · UA</td></tr>
+        <tr><td>전화 클릭</td><td><code>counsel/phone.php</code></td><td>Ads · 카카오 · 네이버 · UA</td></tr>
+        <tr><td>카카오톡 상담</td><td><code>counsel/kakao.php</code></td><td>Ads · 카카오 · UA</td></tr>
+        <tr><td>제휴 예약</td><td><code>community/partner-reserv.php</code></td><td>Ads(755726486) · Meta(제휴) · 카카오</td></tr>
+      </tbody>
+    </table></div>
+    <p>→ FR-13의 <strong>최소 전환 대상</strong>(예약 완료·상담·전화클릭·카톡 이동)이 레거시에도 존재. 신규 <code>dataLayer</code> 규격 설계 시 이 매핑을 기준선으로 사용.</p>
+
+    <!-- 3 캠페인 코드 -->
+    <h2 class="sec" id="camp"><span class="n">03</span>광고 캠페인 코드 (BEVENT_CODE)</h2>
+    <div class="sec-desc">DB 실측 · <code>bseyecom_db.TBL_BANNER_EVENT</code> (백업 2026-07-10)</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th>항목</th><th>값</th></tr></thead>
+      <tbody>
+        <tr><td>활성 캠페인</td><td><strong>207건</strong> (전체 216 · 삭제 9)</td></tr>
+        <tr><td>캠페인 매칭 신청 접수</td><td><strong>150,196건</strong> (신청수 보유 캠페인 107건)</td></tr>
+        <tr><td>구조</td><td><code>BEVENT_CODE</code> · <code>BEVENT_NAME</code> · 매체구분 · 신청수 · 사용여부</td></tr>
+        <tr><td>전체 목록</td><td><a href="bevent-campaign-codes-207.csv">bevent-campaign-codes-207.csv</a> (엑셀 바로 열림, 207행)</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>매체별 요약</h3>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th>매체구분</th><th class="num">캠페인 수</th><th class="num">신청 접수</th></tr></thead>
+      <tbody>
+        <tr><td>(미지정)</td><td class="num">133</td><td class="num">143,139</td></tr>
+        <tr><td>검색광고</td><td class="num">10</td><td class="num">2,899</td></tr>
+        <tr><td>네트워크 광고</td><td class="num">36</td><td class="num">2,312</td></tr>
+        <tr><td>페이스북</td><td class="num">4</td><td class="num">533</td></tr>
+        <tr><td>인스타그램</td><td class="num">3</td><td class="num">353</td></tr>
+        <tr><td>다음카페</td><td class="num">1</td><td class="num">302</td></tr>
+        <tr><td>기타·CPA·디스플레이·바이럴 등</td><td class="num">20</td><td class="num">658</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>신청수 상위 캠페인</h3>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th class="num" style="width:90px">신청수</th><th style="width:200px">BEVENT_CODE</th><th>이벤트명</th></tr></thead>
+      <tbody>
+        <tr><td class="num">42,662</td><td><code>ASKPRICE</code></td><td>비용문의</td></tr>
+        <tr><td class="num">41,884</td><td><code>COUNSELPHONE</code></td><td>전화상담관리</td></tr>
+        <tr><td class="num">26,611</td><td><code>HOMEPAGE</code></td><td>홈페이지 이벤트</td></tr>
+        <tr><td class="num">16,418</td><td><code>ASKPRICE_1</code></td><td>라식/라섹비용문의</td></tr>
+        <tr><td class="num">4,959</td><td><code>KAKAO_20140603</code></td><td>카카오톡상담</td></tr>
+        <tr><td class="num">2,337</td><td><code>KEYWORD_20130410</code></td><td>키워드광고 이벤트</td></tr>
+        <tr><td class="num">2,182</td><td><code>MOBILE_20130306</code></td><td>모바일특수광고1</td></tr>
+        <tr><td class="num">1,915</td><td><code>ASKPRICE_2</code></td><td>안내렌즈삽입술비용문의</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">
+      <b>광고 코드 연속성 (FR-13)</b>
+      신규 시스템이 같은 <code>BEVENT_CODE</code>를 수신하거나 광고 소재 URL을 일괄 교체해야 집행 중 캠페인의 전환 측정이 끊기지 않습니다. 위 상위 코드가 실질 트래픽 대부분을 차지하므로 <strong>최소한 상위 코드는 반드시 연속성 확보</strong>.
+    </div>
+
+    <!-- 4 계정 접근 -->
+    <h2 class="sec" id="account"><span class="n">04</span>소스·DB로 안 나오는 것 (계정 접근)</h2>
+    <div class="sec-desc">위 §1~3 덕분에 마케팅팀 요청은 2건으로 축소</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:260px">필요</th><th>방법</th><th style="width:96px">담당</th></tr></thead>
+      <tbody>
+        <tr><td>GTM 컨테이너 내부 설정(태그·트리거·변수)</td><td>GTM 관리자 → 관리 → <strong>컨테이너 내보내기(JSON)</strong> — 위 3개 각각</td><td>마케팅팀</td></tr>
+        <tr><td>계정 소유권·활성 여부 확인</td><td>GA4·Google Ads·Meta·카카오·네이버 계정 로그인해 소유자·현행 확인</td><td>마케팅팀</td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- 5 주의 -->
+    <h2 class="sec" id="caution"><span class="n">05</span>마이그레이션 주의</h2>
+    <div class="sec-desc">FR-13 연계</div>
+    <ul class="b">
+      <li><strong>측정은 소급 불가</strong> — 오픈 시점 미동작 시 그 기간 데이터 영구 손실.</li>
+      <li><strong>계정 소유권은 당사 명의로 이전</strong> — 대행사·타 업체 계정에 두지 말 것(벤더 종속 방지).</li>
+      <li><strong>개인정보 비전송</strong> — 완료 URL·dataLayer에 개인정보 금지(의료 민감정보). 비식별 접수번호 사용.</li>
+      <li><strong>UA는 이미 종료</strong> — 신규는 GA4 기준으로만 설계. UA 코드는 이관 대상 아님.</li>
+    </ul>
+
+    <div class="pager">
+      <a class="prev" href="4-requirements.html"><div class="dir">← 이전</div><div class="t">03 요구사항 정리</div></a>
+      <a class="next" href="6-seo.html"><div class="dir">다음 →</div><div class="t">05 SEO 실측</div></a>
+    </div>
+
+    <div class="foot">비앤빛안과 홈페이지 리뉴얼 · GA·GTM·광고 트래킹 코드 (레거시 실측) · 2026-07-21</div>
+  </main>
+</div>
+</body>
+</html>

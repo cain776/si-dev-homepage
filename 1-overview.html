@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사업 개요 · 비앤빛 리뉴얼</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/auth.js" data-guard></script>
+</head>
+<body>
+
+<div class="docbar"><div class="docbar-in">
+  <a class="docbar-home" href="index.html">← 목차</a>
+  <nav class="docbar-nav">
+    <a href="1-overview.html" class="on">01 개요</a>
+    <a href="3-summary.html">02 요약</a>
+    <a href="4-requirements.html">03 요구사항</a>
+    <a href="5-tracking.html">04 트래킹</a>
+    <a href="6-seo.html">05 SEO</a>
+    <a href="7-nfr.html">06 NFR</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-eyebrow">01 · Overview</div>
+    <h1 class="page-title">사업 개요</h1>
+    <p class="page-sub">프로젝트의 <strong>목표 · 배경 · 추진 일정 · 범위 경계</strong>입니다. 세부 요구는 03 요구사항 정리를, 실측 자산은 04~05를 참조하세요.</p>
+  </header>
+
+  <main>
+    <!-- 1 목표·배경 -->
+    <h2 class="sec" id="goal"><span class="n">01</span>목표 · 배경</h2>
+    <div class="sec-desc">왜 리뉴얼하는가</div>
+    <p><strong>목표</strong> — 브랜드 컨셉·로고 개편에 맞춰 홈페이지를 리뉴얼하고, <strong>PC/모바일 통합 관리 · 다국어 · 예약/CMS를 하나의 관리자에서 통합 관리</strong>하는 구조로 재구축.</p>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:130px">현행 영역</th><th>문제 (As-Is)</th></tr></thead>
+      <tbody>
+        <tr><td>화면</td><td>PC/모바일 <strong>비반응형 이원 운영</strong></td></tr>
+        <tr><td>기술 스택</td><td>PHP · React · Java <strong>혼재</strong></td></tr>
+        <tr><td>다국어</td><td>국가별 <strong>완전 별도 사이트</strong> 구조</td></tr>
+        <tr><td>데이터</td><td>마루앱 · 자체 CMS · 워드프레스로 <strong>분산 관리</strong></td></tr>
+        <tr><td>구조</td><td>복잡한 IA로 <strong>운영 비효율</strong></td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- 2 추진 일정 -->
+    <h2 class="sec" id="schedule"><span class="n">02</span>추진 일정</h2>
+    <div class="sec-desc">목표 오픈 — 성수기 고려</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:220px">단계</th><th>시점</th></tr></thead>
+      <tbody>
+        <tr><td>요구사항 브리프 공유 (비쥬웍스→시그)</td><td>~2026-07-24 (이번주)</td></tr>
+        <tr><td>브리프 기준 견적 (시그→비쥬웍스)</td><td>브리프 수령 후</td></tr>
+        <tr><td><strong>프로젝트 킥오프 (착수)</strong></td><td><strong>2026-08 초</strong></td></tr>
+        <tr><td>개발 기간</td><td>약 3~4개월</td></tr>
+        <tr><td><strong>오픈 목표</strong></td><td><strong>2026-12 초 ~ 2027-01 초</strong> (성수기 고려)</td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- 3 범위 경계 -->
+    <h2 class="sec" id="scope"><span class="n">03</span>범위 경계 (제외·후순위 명시)</h2>
+    <div class="sec-desc">견적 오해 방지 — 무엇을 안 하는가</div>
+    <ul class="b">
+      <li><strong>권한그룹 생성 기능 제외</strong> — 개발/마케팅/기획 등 <strong>역할별 메뉴 접근 제어까지만</strong> (FR-16).</li>
+      <li><strong>GEO(생성형 검색 최적화) 제외</strong> — 우선 범위 밖, 추후 필요 시 별도 견적 (FR-12).</li>
+      <li><strong>언어별 템플릿 다양화 제외</strong> — 우선 범위 밖, 추후 별도 견적.</li>
+      <li><strong>다국어 언어팩·언어별 배치 커스터마이징</strong> — 후순위 (국가별 고정 랜딩 우선, FR-08·FR-09). 번역은 비쥬웍스 내부 진행.</li>
+    </ul>
+
+    <!-- 4 변경 관리 -->
+    <h2 class="sec" id="freeze"><span class="n">04</span>요구사항 변경 관리</h2>
+    <div class="sec-desc">기준선 고정</div>
+    <div class="note">
+      <b>요구사항 Freeze</b>
+      <strong>착수 시점에 요구사항을 freeze</strong>하고, 오픈 전까지 요구사항은 추가되지 않는 것으로 확인. 이후 변경이 필요하면 <strong>서면 변경요청서(작업·비용·일정 영향)</strong>로 관리합니다.
+    </div>
+
+    <div class="pager">
+      <a class="prev" href="index.html"><div class="dir">← 이전</div><div class="t">목차</div></a>
+      <a class="next" href="3-summary.html"><div class="dir">다음 →</div><div class="t">02 심플 요청사항</div></a>
+    </div>
+
+    <div class="foot">비앤빛안과 홈페이지 리뉴얼 · 사업 개요 · 2026-07-21</div>
+  </main>
+</div>
+</body>
+</html>

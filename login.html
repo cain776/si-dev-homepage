@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>로그인 · 비앤빛 리뉴얼 전달 문서</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  body { background: var(--paper); }
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+  .login-card {
+    width: 100%; max-width: 400px; background: #fff;
+    border: 1px solid var(--line); border-radius: 12px;
+    padding: 40px 36px 32px; box-shadow: 0 8px 40px rgba(32,29,23,.06);
+  }
+  .login-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .24em; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+  .login-title { font-family: 'Newsreader', serif; font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; word-break: keep-all; }
+  .login-sub { font-size: 13.5px; color: var(--dim); margin-top: 10px; word-break: keep-all; line-height: 1.6; }
+  .login-form { margin-top: 28px; }
+  .fld { margin-bottom: 14px; }
+  .fld label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: 7px; }
+  .fld input {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--ink);
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 7px;
+    background: var(--paper); transition: border-color .15s, background .15s;
+  }
+  .fld input:focus { outline: none; border-color: var(--accent); background: #fff; }
+  .btn-login {
+    width: 100%; margin-top: 8px; font-family: inherit; font-size: 15px; font-weight: 700;
+    color: #fff; background: var(--accent); border: 0; border-radius: 7px;
+    padding: 13px; cursor: pointer; transition: opacity .15s, transform .05s;
+  }
+  .btn-login:hover { opacity: .92; }
+  .btn-login:active { transform: translateY(1px); }
+  .btn-login:disabled { opacity: .55; cursor: default; }
+  .login-err {
+    font-size: 13px; color: var(--red); background: #f3e6e3; border: 1px solid #e6cfca;
+    border-radius: 6px; padding: 9px 12px; margin-bottom: 14px; display: none;
+  }
+  .login-err.show { display: block; }
+  .login-card.shake { animation: shake .32s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
+  .login-foot { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--dim); line-height: 1.7; }
+  .login-foot code { background: var(--accent-soft); color: var(--accent); padding: 1px 6px; border-radius: 3px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px; }
+</style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-card" id="card">
+    <div class="login-eyebrow">Vendor Handover · Secure</div>
+    <h1 class="login-title">비앤빛 리뉴얼<br>전달 문서 로그인</h1>
+    <p class="login-sub">발급받은 계정으로 로그인하면 요구사항 전달 문서에 접근할 수 있습니다.</p>
+
+    <form class="login-form" id="form" autocomplete="off">
+      <div class="login-err" id="err"></div>
+      <div class="fld">
+        <label for="id">아이디</label>
+        <input type="text" id="id" name="id" placeholder="아이디" autocomplete="username" autofocus>
+      </div>
+      <div class="fld">
+        <label for="pw">비밀번호</label>
+        <input type="password" id="pw" name="pw" placeholder="비밀번호" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-login" id="submit">로그인</button>
+    </form>
+
+    <div class="login-foot">
+      비앤빛안과 홈페이지 리뉴얼 · 비쥬웍스 → 시그<br>
+      문의: 발주처 담당자에게 계정을 요청하세요.
+    </div>
+  </div>
+</div>
+
+<script src="assets/auth.js"></script>
+<script>
+(function () {
+  // 이미 로그인 상태면 바로 문서로
+  if (window.SigAuth && SigAuth.isAuthed()) {
+    location.replace(nextTarget());
+    return;
+  }
+
+  var form = document.getElementById('form');
+  var idEl = document.getElementById('id');
+  var pwEl = document.getElementById('pw');
+  var errEl = document.getElementById('err');
+  var btn = document.getElementById('submit');
+  var card = document.getElementById('card');
+
+  // next 파라미터는 같은 폴더의 .html 만 허용 (오픈 리다이렉트 방지)
+  function nextTarget() {
+    try {
+      var q = new URLSearchParams(location.search).get('next') || '';
+      q = decodeURIComponent(q);
+      if (/^[\w.\-]+\.html(#[\w\-]*)?$/.test(q)) return q;
+    } catch (e) {}
+    return SigAuth.homePage;
+  }
+
+  function showErr(msg) {
+    errEl.textContent = msg;
+    errEl.classList.add('show');
+    card.classList.remove('shake');
+    void card.offsetWidth;         // 리플로우로 애니메이션 재시작
+    card.classList.add('shake');
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    errEl.classList.remove('show');
+    btn.disabled = true;
+    btn.textContent = '확인 중…';
+    try {
+      var ok = await SigAuth.login(idEl.value, pwEl.value);
+      if (ok) {
+        btn.textContent = '이동 중…';
+        location.replace(nextTarget());
+        return;
+      }
+      showErr('아이디 또는 비밀번호가 올바르지 않습니다.');
+      pwEl.value = '';
+      pwEl.focus();
+    } catch (err) {
+      showErr('로그인 처리 중 오류가 발생했습니다.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '로그인';
+    }
+  });
+})();
+</script>
+</body>
+</html>

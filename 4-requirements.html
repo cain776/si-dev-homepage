@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>요구사항 정리 (FR-01~16) · 비앤빛 리뉴얼</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/auth.js" data-guard></script>
+</head>
+<body>
+
+<div class="docbar"><div class="docbar-in">
+  <a class="docbar-home" href="index.html">← 목차</a>
+  <nav class="docbar-nav">
+    <a href="1-overview.html">01 개요</a>
+    <a href="3-summary.html">02 요약</a>
+    <a href="4-requirements.html" class="on">03 요구사항</a>
+    <a href="5-tracking.html">04 트래킹</a>
+    <a href="6-seo.html">05 SEO</a>
+    <a href="7-nfr.html">06 NFR</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-eyebrow">03 · Requirements</div>
+    <h1 class="page-title">요구사항 정리 (FR-01~16)</h1>
+    <p class="page-sub">기능별로 <strong>As-Is → To-Be · 핵심 요구 · 수용 기준</strong>을 동일 포맷으로 정리했습니다. <strong>수용 기준은 검수 시 그대로 시나리오</strong>로 사용합니다. 담당: 프런트·CMS = 시그 · 백엔드 API = 비쥬웍스.</p>
+  </header>
+
+  <main>
+    <div class="note">
+      <b>우선순위 · 담당 표기</b>
+      각 요구에 <span class="tag">1순위</span> <span class="tag ghost">2순위</span> <span class="tag ghost">3순위</span> 칩으로 우선순위를 표시했습니다. <strong>1순위</strong>는 오픈 필수 핵심, <strong>3순위</strong>는 후순위·선택입니다. 담당은 각 카드의 회색 줄에 명시했습니다.
+    </div>
+
+    <!-- ===================== A ===================== -->
+    <h2 class="sec" id="A"><span class="n">A</span>사이트 기반 구조</h2>
+    <div class="sec-desc">프런트 중심 — 백엔드는 데이터 계약만 제공</div>
+
+    <article class="fr" id="FR-01">
+      <div class="fr-head"><span class="fr-id">FR-01</span><span class="fr-title">반응형 웹</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · <b>프런트 시그</b> (백엔드 의존 없음) · 제공: 모바일 스크린 13종 · URL 110개 목록</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>PC(<code>/</code>)·모바일(<code>/m/</code>) 별도 URL 이중 운영 — 110 URL × 2벌</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>단일 URL 반응형 · 모바일은 전용 레이아웃 별도 디자인</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>3 뷰포트(데스크톱 ≥1024 · 태블릿 768~1023 · 모바일 ≤767) 단일 코드베이스</li>
+          <li>모바일 전용 레이아웃 — 단순 축소 불인정 (모바일 스크린 13종 참고)</li>
+          <li>기존 <code>/m/</code> URL 110개 → 301 redirect 맵 · 대표 URL(canonical) 정책</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>동일 URL 뷰포트별 전환 · 모바일 시안과 구현 일치</li>
+          <li>redirect 맵 100% 자동 테스트 통과 · 4xx·redirect chain 0</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-02">
+      <div class="fr-head"><span class="fr-id">FR-02</span><span class="fr-title">템플릿 · 토큰 구조</span>
+        <span class="fr-chips"><span class="tag ghost">2순위</span><span class="tag ghost">필수(구조)</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · <b>프런트 시그</b> · <code>pageKey</code> 데이터 계약 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>디자인 변경 = 페이지 전면 재개발 (콘텐츠·표현 미분리)</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>콘텐츠·표현 분리 — 재입력 없는 템플릿 교체</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li><code>pageKey</code> 단위 데이터 계약 위 템플릿 렌더 (교체가 데이터 무영향)</li>
+          <li>디자인 토큰(색·타이포·간격) 중앙 관리 · 섹션·블록 컴포넌트화</li>
+          <li>템플릿 커스터마이징 범위·횟수·비용 견적 명시 (다중 템플릿은 선택 견적)</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>같은 <code>pageKey</code>에 다른 템플릿 적용 시 콘텐츠 재입력 불필요 (코드·문서 확인)</li>
+          <li>토큰 값 변경 → 콘텐츠 무변경으로 전 페이지 반영</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-03">
+      <div class="fr-head"><span class="fr-id">FR-03</span><span class="fr-title">콘텐츠 데이터 연동</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · <b>프런트 시그</b> · 공개 조회 API·캐시 무효화 비쥬웍스 <span class="tag red">선행</span> OpenAPI·mock 착수 전 제공</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>콘텐츠 하드코딩 + PHP AJAX — 문구 수정도 개발·배포</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>CMS/DB → API 조회, 관리자 저장 즉시 반영</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li><code>pageKey</code> 단위 조회 · 게시 시 대상 페이지만 캐시 무효화</li>
+          <li>목록·상세 페이지네이션 · API 장애 시 fallback(정적 캐시)</li>
+          <li>통합검색(페이지·뉴스·이벤트·블로그, 언어별 분리) — 검색 API 비쥬웍스 · UI 시그</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>관리자 수정 콘텐츠 배포 없이 반영 · API 차단에도 fallback 렌더</li>
+          <li>통합검색: 현 locale·발행분만 노출 · 결과 없음·페이지네이션 동작</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== B ===================== -->
+    <h2 class="sec" id="B"><span class="n">B</span>고객 여정</h2>
+    <div class="sec-desc">프런트 + CMS + 백엔드 — 세 계층이 모두 걸리는 영역</div>
+
+    <article class="fr" id="FR-04">
+      <div class="fr-head"><span class="fr-id">FR-04</span><span class="fr-title">회원 · 인증</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 로그인·가입·마이페이지 <b>시그</b> · 인증·소셜 OAuth·회원 API 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>회원 71,580 · 소셜 8,834 · 카카오가 타 업체 중계 서버 경유</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>당사 OAuth 앱으로 중계 제거 · 기존 회원 재가입 없이 로그인</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>로그인·회원가입·아이디/비번 찾기·마이페이지 5종</li>
+          <li>소셜 3사(카카오·네이버·구글) — 카카오 자체 OAuth 전환, 소셜 8,834명 <strong>식별자 매핑 유지</strong></li>
+          <li>비밀번호 전환(무솔트 MD5 → 최초 로그인 검증 후 BCrypt 재해시) · 휴대폰 본인인증 · 탈퇴·휴면 정책</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>기존 회원(일반·소셜 3사) 재가입 없이 로그인 · 카카오 중계 미경유</li>
+          <li>마이페이지에서 예약·상담·후기 조회</li>
+        </ul>
+        <div class="note warn">
+          <b>오픈 차단 요인</b>
+          소셜 식별자 · 비밀번호 · 회원 데이터 중 하나라도 어긋나면 오픈 당일 로그인 장애 → 예약(FR-05)도 함께 막힘. <strong>비쥬웍스 선행: 카카오 앱 소유권 확보 · 식별자 매핑.</strong>
+        </div>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-05">
+      <div class="fr-head"><span class="fr-id">FR-05</span><span class="fr-title">예약 · 상담 신청</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트·CMS 접수관리 <b>시그</b> · 예약 API 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>예약 진입점 모달·외부채널 의존, 데이터 소유권 불명확 (현 마루앱)</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>홈페이지 안 완결 · 당사 DB를 원장으로 저장</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>예약·상담 화면 4종 (허브 1 + 신청 3: 상담·검진·제휴)</li>
+          <li><strong>마루앱 관리자 대체·재구축</strong>(데이터 마이그레이션 포함) · 시간대별 최대수량 단순 정책 1차 · 원장 오전/오후 가능여부만</li>
+          <li>예약 데이터 <strong>CRM 전달만 · 알림톡 CRM</strong> · 슬롯 점유 트랜잭션·멱등성·본인인증</li>
+          <li>마이페이지 예약 조회·변경·취소</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>신청 → 저장 → 조회 → 관리자 확인 전 과정 시나리오</li>
+          <li>완료 단계 <code>noindex</code> · 중복 방지 · 정원 초과 방지 · 슬롯 동시성</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-06">
+      <div class="fr-head"><span class="fr-id">FR-06</span><span class="fr-title">의료진 · 진료일정</span>
+        <span class="fr-chips"><span class="tag ghost">2순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트·CMS <b>시그</b> · <span class="tag red">선행</span> 슬롯 모델 비쥬웍스(미설계)</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>레거시 진료일정 있었으나 신규 ERD엔 의료진 프로필만</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>의료진별 진료일정 조회·CMS 관리 — 예약 슬롯의 원천</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>의료진별 진료일·시간대 조회 (휴진·학회·수술일 예약 불가 표시)</li>
+          <li>CMS 반복 일정 + 단발 예외 관리 · 휴진 등록이 예약 슬롯에 즉시 반영</li>
+          <li>착수 대기: 슬롯 규칙·수용인원·변경/취소 정책은 <strong>SOFTCRM 분석 후</strong> 제공</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>CMS 휴진 등록 → 진료일정·예약 슬롯 동시 반영</li>
+          <li>반복 + 단발 예외 동시 적용 시 슬롯 정확 계산</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== C ===================== -->
+    <h2 class="sec" id="C"><span class="n">C</span>다국어</h2>
+    <div class="sec-desc">시그 구축 범위는 KO + EN · 나머지 언어 번역·운영은 비쥬웍스</div>
+
+    <article class="fr" id="FR-07">
+      <div class="fr-head"><span class="fr-id">FR-07</span><span class="fr-title">다국어 라우팅 · 언어 전환</span>
+        <span class="fr-chips"><span class="tag ghost">2순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트 <b>시그</b> · 언어 목록·locale API 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>서브도메인 4개(en·zh·ja·vi) 별도 사이트 — 콘텐츠·SEO 분산</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>경로 기반 locale 단일 사이트 · 시그 구축은 <code>/ko</code> + <code>/en</code></div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>locale 라우팅 + 언어 전환 UI (동일 페이지의 대응 locale로 이동)</li>
+          <li>언어 추가에 코드 수정 불필요한 구조 (언어 목록 하드코딩 금지) · 미번역 fallback 금지</li>
+          <li>hreflang·sitemap 자동 · 구 서브도메인 → locale redirect (언어별 전환 스위치)</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>언어 전환 시 대응 페이지 이동 · 미발행 언어 비노출·현행 서브도메인 유지</li>
+          <li>언어 목록 추가 시 코드 수정 없이 라우팅·hreflang·sitemap 자동 반영</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-08">
+      <div class="fr-head"><span class="fr-id">FR-08</span><span class="fr-title">번역 · 언어팩 관리</span>
+        <span class="fr-chips"><span class="tag amber">3순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트·CMS <b>시그</b> · <span class="tag red">선행</span> 언어팩 API 비쥬웍스(미구현)</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>외국어 사이트별 개별 관리 — 번역 상태 추적 불가</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>키·스키마는 프런트, 번역 값은 CMS 언어팩</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>정적 UI 번역 키·namespace 프런트 정의, 값은 CMS (새 언어값 코드 수정 불필요)</li>
+          <li>빌드 시 언어팩 조회 → locale 리소스 생성, 게시 시 재검증</li>
+          <li>콘텐츠 번역 상태(미시작→번역중→검수→완료, 원문 변경 시 OUTDATED) · 의료 콘텐츠 사람 검수</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>기존 키에 CMS로 언어값 입력·발행 → 코드 수정 없이 반영</li>
+          <li>원문 수정 시 대응 번역 OUTDATED로 식별</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-09">
+      <div class="fr-head"><span class="fr-id">FR-09</span><span class="fr-title">언어별 배치 (placement)</span>
+        <span class="fr-chips"><span class="tag amber">3순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트·CMS <b>시그</b> · placement API 비쥬웍스(설계 완료)</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>언어별 사이트 물리 분리 (영문 = 다른 사이트)</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>섹션 순서·노출·배너 위치를 언어마다 독립</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>언어별 독립 배치 (상속·오버라이드 아님) — <code>cms_section_placement</code>·<code>banner_placement</code></li>
+          <li>언어 전용 콘텐츠(특정 언어에만 존재) 배치 · CMS에서 언어 선택 후 설정</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>같은 페이지 KO/EN 섹션 순서·노출을 다르게 각각 렌더</li>
+          <li>한 언어 배치 변경이 타 언어에 무영향</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== D ===================== -->
+    <h2 class="sec" id="D"><span class="n">D</span>검색 노출</h2>
+    <div class="sec-desc">프런트 마크업 + CMS 편집 — GEO만 선택 견적</div>
+
+    <article class="fr" id="FR-10">
+      <div class="fr-head"><span class="fr-id">FR-10</span><span class="fr-title">SEO 관리</span>
+        <span class="fr-chips"><span class="tag ghost">2순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트·CMS <b>시그</b> · <code>seo_meta</code> API 비쥬웍스(설계 완료)</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>메타가 PHP 하드코딩 — 문구 수정도 개발 요청, 언어별 개별 관리</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>기본값 자동생성 + 운영자 페이지·언어별 재정의 (배포 없이)</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>자동 생성 + CMS 덮어쓰기 (<code>page_id × language</code> 유니크)</li>
+          <li>title·description·OG 편집 · 재정의값 우선, 없으면 자동생성값 렌더</li>
+          <li>기본 구조화 데이터 4종(Organization·WebSite·BreadcrumbList·Physician) 자동생성 — <strong>필수 범위</strong></li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>메타 수정 배포 없이 반영 · KO/EN 독립 저장</li>
+          <li>기본 구조화 데이터 4종 리치 결과 테스트 통과</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-11">
+      <div class="fr-head"><span class="fr-id">FR-11</span><span class="fr-title">블로그 이전 (WordPress 폐기)</span>
+        <span class="fr-chips"><span class="tag ghost">2순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트·CMS <b>시그</b> · 블로그 API·콘텐츠 이관 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>WordPress 별도 시스템 — 글 500여 건 + 태그 URL 1,596</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>WordPress 폐기 · 콘텐츠만 단일 CMS로 이전</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>글 500여 건 + 본문 이미지·카테고리 이전 (건수 대사)</li>
+          <li>목록·상세·카테고리 · 태그 아카이브 재현 여부 미확정 (견적 변수)</li>
+          <li>구 블로그 URL 전량 301 redirect</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>전수 대사 (건수·이미지·카테고리 일치) · 구 URL → 301</li>
+          <li>새 CMS에서 글 등록 → 발행 → 노출</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-12">
+      <div class="fr-head"><span class="fr-id">FR-12</span><span class="fr-title">GEO (생성형 AI 검색)</span>
+        <span class="fr-chips"><span class="tag amber">3순위</span><span class="tag red">선택 견적</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 프런트 마크업 <b>시그</b> · CMS 입력 미정 · 확장 모델 비쥬웍스(없음)</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>구조화 데이터 없음 · ERD에 확장 필드 없음</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>AI 검색 노출 확장 구조화 — 필수 제외, 별도 견적</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>기본 4종(FR-10)은 필수 — <strong>함께 묶어 제외 금지</strong></li>
+          <li>FAQ·의미 구조화는 별도 항목 견적 · 미채택해도 추후 도입 안 막는 구조</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>(채택) 확장 JSON-LD 검증 / (미채택) 기존 컴포넌트 수정 없이 확장 가능함 설명</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== E ===================== -->
+    <h2 class="sec" id="E"><span class="n">E</span>측정 · 동의</h2>
+    <div class="sec-desc">프런트 태깅 + CMS 집계 + 백엔드 저장 — 동의가 측정의 법적 전제</div>
+
+    <article class="fr" id="FR-13">
+      <div class="fr-head"><span class="fr-id">FR-13</span><span class="fr-title">웹 분석 · 전환 측정</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag red">소급 불가</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 태깅·유입 캡처 <b>시그</b> · 저장 API 비쥬웍스 · 전환 정의 공동 · GA4·GTM 계정 당사 명의</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>전환 측정 미정의 · 레거시 캠페인 코드 207건에 광고 랜딩 의존</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>오픈 시점부터 유입·전환 측정 (성과를 숫자로)</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>GA4·GTM 설치(계정 당사 명의) · 전환 정의(공동): 예약완료·상담·검진·전화클릭·카톡</li>
+          <li>개인정보 비전송 (완료 URL·dataLayer에 개인정보 금지 · 비식별 접수번호 사용)</li>
+          <li>유입 캡처(utm·<code>BEVENT_CODE</code>) → API <code>tracking</code> 전달 · CMS 캠페인별 신청수</li>
+          <li>SPA(App Router) <code>page_view</code> 누락·중복 검증 · 광고 코드 연속성</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>전환 GA4 수집(스테이징+오픈) · 개인정보 미포함 실측 · 집행 캠페인 끊김 없음</li>
+          <li><code>utm_json</code> 저장 확인 · CMS 캠페인별 신청수 조회</li>
+        </ul>
+        <div class="note warn">
+          <b>측정은 소급 불가</b>
+          오픈 시점에 태깅이 동작하지 않으면 그 기간 데이터는 <strong>영구 손실</strong>. 완료 URL·<code>dataLayer</code> 규격은 <strong>착수 시점에 합의</strong>해야 하며, 트래킹 자산 실측은 <a href="5-tracking.html" style="color:var(--accent);border-bottom:1px solid #cfd6df;">04 트래킹 코드</a> 참조.
+        </div>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-14">
+      <div class="fr-head"><span class="fr-id">FR-14</span><span class="fr-title">쿠키 · 행태정보 동의</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수(법적)</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · 동의 배너·Consent Mode <b>시그</b> · 동의 이력 API·처리방침 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>행태정보 수집 동의·고지 절차 없음</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>동의 범위 내에서만 수집 · 거부 시 추적 태그 미발화</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>동의 배너 (필수/분석/광고 선택 · 거부·철회 가능)</li>
+          <li>Consent Mode(Basic) — 동의 전·거부 시 GA4·광고 태그 미실행</li>
+          <li>동의 이력 저장(누가·언제·무엇) · 처리방침에 행태정보 항목 반영</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>동의 전 태그 미발화(네트워크 확인) · 철회 즉시 중단</li>
+          <li>동의·철회 이력 저장·조회 · 처리방침과 수집 범위 일치</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== F ===================== -->
+    <h2 class="sec" id="F"><span class="n">F</span>운영 · 관리자</h2>
+    <div class="sec-desc">CMS 중심 — 백엔드 API는 비쥬웍스</div>
+
+    <article class="fr" id="FR-15">
+      <div class="fr-head"><span class="fr-id">FR-15</span><span class="fr-title">CMS 콘텐츠 관리</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · CMS <b>시그</b> (신규 구축) · 콘텐츠 CRUD·게시 워크플로 API 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>콘텐츠·배너 수정마다 업체 요청 — 대기·건별 비용</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>운영자가 개발 요청 없이 직접 등록·게시</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>콘텐츠 CRUD (배너·팝업·이벤트·소식·수상·논문·의료진·후기·블로그·비급여 고지) — 관리 경로 36 <strong>참고</strong>(코드 인수 아님)</li>
+          <li>게시 워크플로 (작성/검토/게시 상태·노출 분리 · 예약 게시 · 미리보기) · 치료경험담 승인 전 비노출</li>
+          <li>코드 지식 없이 편집 에디터 · 예약·상담 접수 관리</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>운영자 단독 시연(배너 교체·이벤트 게시·종료일 자동) · 개발자 개입 0</li>
+          <li>치료경험담 검수 전 비노출 · 운영자 매뉴얼·인수 교육</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="fr" id="FR-16">
+      <div class="fr-head"><span class="fr-id">FR-16</span><span class="fr-title">권한 · 감사 · 개인정보</span>
+        <span class="fr-chips"><span class="tag">1순위</span><span class="tag ghost">필수</span></span></div>
+      <div class="fr-body">
+        <div class="fr-owner">담당 · CMS UI <b>시그</b> · 인증·RBAC·감사로그 API 비쥬웍스</div>
+        <div class="at">
+          <div class="box as"><b>As-Is</b>운영 로그인·RBAC 미구축 (회원 71,580·상담 109,672 다루는 의료 CMS)</div>
+          <div class="arw">→</div>
+          <div class="box to"><b>To-Be</b>역할별 접근통제 + 개인정보 마스킹 기본 + 조회·다운로드 감사</div>
+        </div>
+        <div class="fr-label">핵심 요구</div>
+        <ul class="req">
+          <li>역할별 메뉴·기능 접근 제어 · 계정 관리 · 변경 감사로그</li>
+          <li>관리자 로그인·2단계 인증(MFA) 오픈 필수 (화면 흐름 시그 · 인증 API 비쥬웍스)</li>
+          <li>개인정보 마스킹 기본 · 원문 조회 별도 권한 · 다운로드·원문 조회 전건 감사로그</li>
+        </ul>
+        <div class="fr-label ok">수용 기준</div>
+        <ul class="acc">
+          <li>권한 없는 접근 차단 · 마스킹 기본·원문 권한 분리</li>
+          <li>다운로드·원문 조회 감사 기록 · MFA 로그인 흐름 동작</li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="note">
+      <b>착수 전 비쥬웍스 선행 제공 (일정 크리티컬 패스)</b>
+      <ul>
+        <li>API 규격(OpenAPI)·mock 서버·확정 <code>pageKey</code> 목록 (FR-03)</li>
+        <li>카카오 개발자센터 앱 소유권 확보·소셜 식별자 매핑 (FR-04)</li>
+        <li>전환 이벤트 정의·<code>dataLayer</code> 규격·캠페인 코드 207건 (FR-13)</li>
+        <li>의료진 슬롯 규칙·진료일정 모델 — SOFTCRM 분석 후 (FR-06)</li>
+      </ul>
+    </div>
+
+    <div class="pager">
+      <a class="prev" href="3-summary.html"><div class="dir">← 이전</div><div class="t">02 심플 요청사항</div></a>
+      <a class="next" href="5-tracking.html"><div class="dir">다음 →</div><div class="t">04 트래킹 코드</div></a>
+    </div>
+
+    <div class="foot">비앤빛안과 홈페이지 리뉴얼 · 요구사항 정리 (FR-01~16) · 2026-07-21</div>
+  </main>
+</div>
+</body>
+</html>

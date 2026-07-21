@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO 실측 자산 · 비앤빛 리뉴얼</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/auth.js" data-guard></script>
+</head>
+<body>
+
+<div class="docbar"><div class="docbar-in">
+  <a class="docbar-home" href="index.html">← 목차</a>
+  <nav class="docbar-nav">
+    <a href="1-overview.html">01 개요</a>
+    <a href="3-summary.html">02 요약</a>
+    <a href="4-requirements.html">03 요구사항</a>
+    <a href="5-tracking.html">04 트래킹</a>
+    <a href="6-seo.html" class="on">05 SEO</a>
+    <a href="7-nfr.html">06 NFR</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-eyebrow">05 · SEO Assets</div>
+    <h1 class="page-title">SEO 실측 자산</h1>
+    <p class="page-sub"><strong>레거시 소스에서 직접 추출</strong>한 SEO 현황입니다. 이관 시 살릴 자산과 반드시 고쳐야 할 문제를 구분했습니다. <a href="4-requirements.html#FR-10" style="color:var(--accent);border-bottom:1px solid #cfd6df;">FR-10 SEO 관리</a> · <a href="4-requirements.html#FR-07" style="color:var(--accent);border-bottom:1px solid #cfd6df;">FR-07 다국어</a> 연계.</p>
+  </header>
+
+  <main>
+    <!-- 1 메타 구조 -->
+    <h2 class="sec" id="meta"><span class="n">01</span>메타 · 태그 구조</h2>
+    <div class="sec-desc">페이지별 동적 세팅 — 이관 시 seo_meta로 승계</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:170px">항목</th><th>현황</th><th style="width:110px">이관</th></tr></thead>
+      <tbody>
+        <tr><td>title · description · keywords</td><td>페이지 레코드에서 동적 세팅 (<code>page_name</code>→title · <code>info01</code>→description · <code>info02</code>→keywords)</td><td>승계 가능</td></tr>
+        <tr><td>canonical</td><td>있음 · PC/모바일 <code>alternate</code>(min-width 640) 병행 · <code>/m/m/</code> 중복 보정 흔적</td><td>승계 가능</td></tr>
+        <tr><td>Open Graph</td><td>og:type(article)·title·url·image·site_name·description·updated_time 완비</td><td>승계 가능</td></tr>
+        <tr><td>Twitter Card</td><td>summary · title·description·image</td><td>승계 가능</td></tr>
+        <tr><td>검색엔진 인증</td><td>소스에 실제 값 없음 → 계정측(GSC·네이버)</td><td><span class="tag amber">마케팅팀</span></td></tr>
+      </tbody>
+    </table></div>
+    <p>→ 레거시가 이미 <strong>페이지별로 SEO 문구를 DB에 보관</strong>하고 있어, FR-10의 <code>seo_meta</code>(page × language) 구조로 <strong>자연스럽게 이관</strong>됩니다.</p>
+
+    <!-- 2 구조화 데이터 -->
+    <h2 class="sec" id="schema"><span class="n">02</span>구조화 데이터 (schema.org)</h2>
+    <div class="sec-desc">이미 보유한 자산 — 재활용 가치 높음</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:200px">유형</th><th>현황</th></tr></thead>
+      <tbody>
+        <tr><td>FAQ (FAQPage)</td><td>안질환 <strong>9개 페이지</strong>에 JSON-LD FAQ 존재 (백내장·녹내장·노안·당뇨망막병증·황반변성·비문증·망막정맥/동맥폐쇄·라식라섹)</td></tr>
+        <tr><td>블로그 (Yoast)</td><td>WordPress SEO(Yoast) 자동 스키마 — 블로그 이전 시 재구성 필요</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">
+      <b>재활용 포인트</b>
+      기존 FAQ 구조화 데이터는 FR-10 기본 구조화(필수) 및 <a href="4-requirements.html#FR-12" style="color:var(--accent);border-bottom:1px solid #cfd6df;">FR-12 GEO(선택)</a>에서 <strong>AI 검색·리치결과용 자산</strong>으로 바로 재사용할 수 있습니다.
+    </div>
+
+    <!-- 3 sitemap robots -->
+    <h2 class="sec" id="crawl"><span class="n">03</span>sitemap · robots</h2>
+    <div class="sec-desc">현행 상태 — 오픈 전 반드시 교체</div>
+    <div class="scroll-x"><table class="tbl">
+      <thead><tr><th style="width:130px">파일</th><th>현황</th><th style="width:110px">판정</th></tr></thead>
+      <tbody>
+        <tr><td>sitemap.xml</td><td>79 URL · <strong>lastmod 2020-03-27</strong>(6년 경과) · 도메인 <code>bseye.kr</code>(구 도메인) · http · 구 URL 구조 · 무료툴 수동생성</td><td><span class="tag red">폐기·재생성</span></td></tr>
+        <tr><td>robots.txt</td><td><code>User-agent: * / Disallow: /</code> — <strong>전체 크롤링 차단</strong></td><td><span class="tag red">확인·교체</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="note warn">
+      <b>오픈 차단 위험</b>
+      <ul>
+        <li><strong>robots.txt가 전체 차단(Disallow: /)</strong> — 이 백업이 스테이징본일 수 있으니 <strong>라이브 robots.txt 1회 확인</strong>. 신규 오픈 시 이 설정이 그대로 가면 <strong>색인 전멸</strong>.</li>
+        <li><strong>sitemap이 6년 전·구 도메인 기준</strong> — 신규는 언어별 자동 생성 sitemap으로 <strong>새로 만들어야</strong> 함(FR-07).</li>
+      </ul>
+    </div>
+
+    <!-- 4 다국어 SEO -->
+    <h2 class="sec" id="i18n"><span class="n">04</span>다국어 SEO</h2>
+    <div class="sec-desc">현행은 분산 — FR-07에서 통합</div>
+    <ul class="b">
+      <li><strong>hreflang 없음</strong> — 언어별(en·zh·ja·vi) 서브도메인이 물리적으로 분리돼 있어 대체 언어 표시가 없음.</li>
+      <li>→ 검색엔진이 언어판을 연결하지 못하는 상태. FR-07에서 <strong>경로 기반 locale + hreflang 자동</strong>으로 해소.</li>
+    </ul>
+
+    <!-- 5 이관 주의 -->
+    <h2 class="sec" id="migration"><span class="n">05</span>이관 주의 (체크리스트)</h2>
+    <div class="sec-desc">SEO 자산 보존 + 위험 제거</div>
+    <ul class="b">
+      <li><strong>robots.txt</strong> — 오픈 시 전체 차단 해제 확인 (가장 위험).</li>
+      <li><strong>sitemap</strong> — 신규 도메인·URL·언어별로 자동 생성 재작성 (구 sitemap 폐기).</li>
+      <li><strong>301 redirect</strong> — 구 URL(110개 × PC/모바일) → 신규 전량 매핑 (FR-01).</li>
+      <li><strong>메타 승계</strong> — 페이지별 title/description/keywords를 seo_meta로 이관 (FR-10).</li>
+      <li><strong>구조화 데이터</strong> — FAQ 9종 재활용, 기본 4종 자동생성 (FR-10) + GEO 확장은 선택 (FR-12).</li>
+      <li><strong>검색엔진 인증·소유권</strong> — GSC·네이버 소유권을 당사 명의로 이전 (마케팅팀).</li>
+    </ul>
+
+    <div class="pager">
+      <a class="prev" href="5-tracking.html"><div class="dir">← 이전</div><div class="t">04 트래킹 코드</div></a>
+      <a class="next" href="7-nfr.html"><div class="dir">다음 →</div><div class="t">06 비기능 요구사항</div></a>
+    </div>
+
+    <div class="foot">비앤빛안과 홈페이지 리뉴얼 · SEO 실측 자산 (레거시 실측) · 2026-07-21</div>
+  </main>
+</div>
+</body>
+</html>
