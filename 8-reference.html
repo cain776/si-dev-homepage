@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>참고자료 · GA4 이벤트 정의서 · 비앤빛 리뉴얼</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/auth.js" data-guard></script>
+<style>
+/* GA4 이벤트 정의서 표 — 이 페이지 전용 스코프 */
+#ga4 td { vertical-align: top; }
+#ga4 tbody tr:not(.grp):not(.evt):not(.noparam):hover { background: rgba(31,45,66,.03); }
+#ga4 tr.evt td { background: var(--paper-2); border-top: 1.5px solid var(--accent-line); padding-top: 13px; padding-bottom: 13px; }
+#ga4 tr.evt b { color: var(--ink); font-weight: 700; font-size: 14.5px; }
+#ga4 tr.evt .trig { color: var(--dim); font-weight: 400; font-size: 13px; }
+#ga4 tr.evt code { font-size: 12px; }
+#ga4 tr.evt .conv { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .04em; color: #fff; background: var(--red); padding: 1px 7px; border-radius: 100px; vertical-align: middle; }
+#ga4 tr.evt .flag, #ga4 .flag { color: var(--amber); font-size: 12px; font-weight: 700; }
+#ga4 tr.evt .nocode { font-size: 11.5px; color: var(--dim); font-style: italic; }
+#ga4 td.pcode { font-family: var(--mono); font-size: 12.5px; color: var(--accent-ink); white-space: nowrap; }
+#ga4 th:nth-child(1) { width: 210px; }
+#ga4 th:nth-child(2) { width: 260px; }
+#ga4 .muted { color: var(--faint); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 6px 0 4px; font-size: 12.5px; color: var(--ink-soft); }
+.legend span b { color: var(--ink); }
+.legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<div class="docbar"><div class="docbar-in">
+  <a class="docbar-home" href="index.html">← 목차</a>
+  <nav class="docbar-nav">
+    <a href="1-overview.html">01 개요</a>
+    <a href="3-summary.html">02 요약</a>
+    <a href="4-requirements.html">03 요구사항</a>
+    <a href="5-tracking.html">04 트래킹</a>
+    <a href="6-seo.html">05 SEO</a>
+    <a href="8-reference.html" class="on">06 참고자료</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page-head">
+    <div class="page-eyebrow">06 · Reference</div>
+    <h1 class="page-title">참고자료 · GA4 이벤트 정의서</h1>
+    <p class="page-sub">비앤빛안과 레거시 <strong>GA4 이벤트 정의서</strong> 실측 자료입니다. 리뉴얼 시 <strong>이벤트명·매개변수 규격</strong>을 그대로 이관/재현하기 위한 참고용으로, 구분 → 이벤트(트리거·이벤트명) → 매개변수·값 순으로 정리했습니다.</p>
+  </header>
+
+  <main>
+    <h2 class="sec" id="ga4-events"><span class="n">GA4</span>이벤트 · 매개변수 정의</h2>
+    <div class="sec-desc">41개 이벤트 · 86개 매개변수 (공통 사용자 속성 포함) — 원문 정의서 그대로</div>
+
+    <div class="legend">
+      <span><span class="sw" style="background:var(--red)"></span><b>전환</b> 주요 전환 이벤트</span>
+      <span><span class="sw" style="background:var(--amber)"></span><b>※</b> 확인 요청사항</span>
+      <span><span class="muted">코드</span> = GA4 이벤트명 / 매개변수(영문)</span>
+    </div>
+
+    <div class="scroll-x"><table class="tbl" id="ga4">
+      <thead><tr><th>매개변수 / 이벤트</th><th>값 설명</th><th>값 예시</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3">공통 · 모든 이벤트 공통 수집 (사용자 속성)</td></tr>
+        <tr><td class="pcode">is_member</td><td>로그인 사용자 여부 확인</td><td>y/n</td></tr>
+        <tr><td class="pcode">is_reservation_active</td><td>예약 활성화 여부</td><td>예약있음 / 예약없음</td></tr>
+        <tr><td class="pcode">device_info</td><td>접속 기기정보</td><td>PC / MO</td></tr>
+        <tr class="grp"><td colspan="3">팝업</td></tr>
+        <tr class="evt"><td colspan="3"><code>top_rolling_banner_click</code> <b>PC 상단 팝업 롤링 배너</b> <span class="trig">— PC 상단 팝업 롤링 배너 클릭 시</span></td></tr>
+        <tr><td class="pcode">banner_title</td><td>배너 제목</td><td>비앤빛 AI 라섹 100만원 특가 <span class="flag">※ 수집 불가 시 삭제</span></td></tr>
+        <tr><td class="pcode">banner_id</td><td>배너 ID</td><td>20240710145711</td></tr>
+        <tr><td class="pcode">banner_url</td><td>배너 url</td><td>https://www.bnviit.com/community/event</td></tr>
+        <tr class="evt"><td colspan="3"><code>popup_slide_banner_click</code> <b>MO 팝업 슬라이드 배너</b> <span class="trig">— MO 팝업 슬라이드 배너 클릭 시</span></td></tr>
+        <tr><td class="pcode">banner_index</td><td>배너 순서</td><td>1</td></tr>
+        <tr><td class="pcode">banner_title</td><td>배너 제목</td><td>비앤빛 AI 라섹 100만원 특가 <span class="flag">※ 수집 불가 시 삭제</span></td></tr>
+        <tr><td class="pcode">banner_id</td><td>배너 ID</td><td>20240710145711</td></tr>
+        <tr><td class="pcode">banner_url</td><td>배너 url</td><td>https://www.bnviit.com/community/event</td></tr>
+        <tr class="grp"><td colspan="3">PC · 플로팅 배너</td></tr>
+        <tr class="evt"><td colspan="3"><code>btn_online_reserv_click</code> <b>PC 플로팅 배너 · 온라인 예약</b> <span class="trig">— PC 플로팅 배너 - 온라인 예약 클릭 시 (플로팅 form 오픈 시에도 적용)</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr><td class="pcode">main_active_section</td><td>활성화된 섹션 (메인인 경우)</td><td>어떤 수술이 적합한지 의료진이 체크, AI가 또 체크</td></tr>
+        <tr><td class="pcode">main_active_section_id</td><td>활성화된 섹션 id (메인인 경우)</td><td>1 / 2 / 3 / 4 / 5 / 6</td></tr>
+        <tr class="evt"><td colspan="3"><code>btn_cost_consult_click</code> <b>PC 플로팅 배너 · 비용 상담</b> <span class="trig">— PC 플로팅 배너 - 비용 상담 클릭 시 (플로팅 form 오픈 시에도 적용)</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr><td class="pcode">main_active_section</td><td>활성화된 섹션 (메인인 경우)</td><td>어떤 수술이 적합한지 의료진이 체크, AI가 또 체크</td></tr>
+        <tr><td class="pcode">main_active_section_id</td><td>활성화된 섹션 id (메인인 경우)</td><td>1 / 2 / 3 / 4 / 5 / 6</td></tr>
+        <tr class="evt"><td colspan="3"><code>btn_kakao_consult_click</code> <b>PC 플로팅 배너 · 카톡 상담</b> <span class="trig">— PC 플로팅 배너 - 카톡 상담 클릭 시 (플로팅 form 오픈 시에도 적용)</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr><td class="pcode">main_active_section</td><td>활성화된 섹션 (메인인 경우)</td><td>어떤 수술이 적합한지 의료진이 체크, AI가 또 체크</td></tr>
+        <tr><td class="pcode">main_active_section_id</td><td>활성화된 섹션 id (메인인 경우)</td><td>1 / 2 / 3 / 4 / 5 / 6</td></tr>
+        <tr class="evt"><td colspan="3"><code>btn_ai_test_click</code> <b>PC 플로팅 배너 · 인공지능검사</b> <span class="trig">— PC 플로팅 배너 - 인공지능검사 클릭 시 (플로팅 form 오픈 시에도 적용)</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr><td class="pcode">main_active_section</td><td>활성화된 섹션 (메인인 경우)</td><td>어떤 수술이 적합한지 의료진이 체크, AI가 또 체크</td></tr>
+        <tr><td class="pcode">main_active_section_id</td><td>활성화된 섹션 id (메인인 경우)</td><td>1 / 2 / 3 / 4 / 5 / 6</td></tr>
+        <tr class="grp"><td colspan="3">PC · 팝업 배너</td></tr>
+        <tr class="evt"><td colspan="3"><code>ifdo_popup_cta_click</code> <b>PC 하단 팝업 이벤트 배너</b> <span class="trig">— PC 하단 팝업 이벤트 배너 내 CTA 클릭</span></td></tr>
+        <tr><td class="pcode">banner_title</td><td>배너 제목</td><td>여름시즌, 최대 70만원 할인이벤트중</td></tr>
+        <tr><td class="pcode">banner_id</td><td>배너 ID</td><td>129589305 <span class="flag">※ 이프두(ifdo) 외부 스크립트 서비스 · 트래킹 가능 여부 확인 요청</span></td></tr>
+        <tr><td class="pcode">banner_url</td><td>배너 url</td><td>https://www.bnviit.com/community/event?bn=524&amp;m=read&amp;nPage=1&amp;cate=&amp;cntPage=1&amp;bType=&amp;ctitle=비앤빛+30주년+여름+프로모션</td></tr>
+        <tr class="grp"><td colspan="3">MO · 하단 배너</td></tr>
+        <tr class="evt"><td colspan="3"><code>tabbar_call_click</code> <b>MO 하단 고정 메뉴 · 전화상담</b> <span class="trig">— MO 하단 고정 메뉴 - 전화상담 클릭 시 (Blog 웹사이트에서도 적용)</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛 / blog</td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>tabbar_reserv_click</code> <b>MO 하단 고정 메뉴 · 예약</b> <span class="trig">— MO 하단 고정 메뉴 - 예약 클릭 시</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛 / blog</td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>tabbar_cost_click</code> <b>MO 하단 고정 메뉴 · 비용 상담</b> <span class="trig">— MO 하단 고정 메뉴 - 비용 상담 클릭 시</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛 / blog</td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>tabbar_ai_click</code> <b>MO 하단 고정 메뉴 · 인공지능검사</b> <span class="trig">— MO 하단 고정 메뉴 - 인공지능검사 클릭 시</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛 / blog</td></tr>
+        <tr><td class="pcode">page_title</td><td>클릭된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="grp"><td colspan="3">회원가입</td></tr>
+        <tr class="evt"><td colspan="3"><code>sign_up_page_view</code> <b>일반 회원가입 시작</b> <span class="trig">— 일반 회원가입 시작 페이지 진입 시</span></td></tr>
+        <tr class="noparam"><td colspan="3"><span class="muted">— 매개변수 없음</span></td></tr>
+        <tr class="evt"><td colspan="3"><code>sign_up</code> <b>회원가입 완료</b> <span class="trig">— 회원가입 완료 시 (SNS 가입 포함)</span></td></tr>
+        <tr><td class="pcode">method</td><td>회원가입 완료 시 가입수단</td><td>네이버 / 카카오 / 구글 / 일반회원</td></tr>
+        <tr class="grp"><td colspan="3">Nav메뉴</td></tr>
+        <tr class="evt"><td colspan="3"><code>menu_open</code> <b>메뉴 열기</b> <span class="trig">— 메뉴 열기 버튼(햄버거 버튼) 클릭 시 (Blog 웹사이트 포함)</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>메뉴 열기 시 활성화된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr class="evt"><td colspan="3"><code>utility_menu_click</code> <b>유틸리티 메뉴 클릭</b> <span class="trig">— 햄버거 버튼 열기 후 유틸리티 메뉴 클릭 시</span></td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 메뉴 이름</td><td>로그인 / 회원가입 / 로그아웃 / 마이페이지 / 인터넷 증명서 발급 / 유전검사 동의서 / 고객의 소리</td></tr>
+        <tr class="evt"><td colspan="3"><code>menu_click</code> <b>메뉴 리스트 클릭</b> <span class="trig">— 햄버거 버튼 열기 후 메뉴 리스트 클릭 시</span></td></tr>
+        <tr><td class="pcode">type</td><td>클릭한 메뉴 타입</td><td>메뉴 리스트 (고정)</td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 메뉴 이름</td><td>의료진 / 원장단 / A.I. 시스템 등</td></tr>
+        <tr><td class="pcode">category1</td><td>클릭한 메뉴가 속한 카테고리</td><td>비앤빛 / 스마일 / 시력교정 / 퍼스널아이즈 / 노안·백내장 / 커뮤니티 / 아이콘</td></tr>
+        <tr><td class="pcode">category2</td><td>클릭한 메뉴가 속한 카테고리</td><td>의료진 / A.I 시스템 / 연구개발 / 병원 미리보기 / 비앤빛 스토리 등</td></tr>
+        <tr class="evt"><td colspan="3"><span class="nocode">(이벤트명 미표기)</span> <b>메인 섹션 메뉴 클릭</b> <span class="trig">— 메인 섹션 메뉴 클릭 시</span> <span class="flag">※ 원문상 이벤트명 미표기</span></td></tr>
+        <tr><td class="pcode">type</td><td>클릭한 메뉴 타입</td><td>메인 섹션 메뉴 (고정)</td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 메뉴 이름</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><span class="nocode">(이벤트명 미표기)</span> <b>PC · 서브페이지 메뉴 클릭</b> <span class="trig">— PC - 서브페이지 메뉴 클릭 시</span> <span class="flag">※ 원문상 이벤트명 미표기</span></td></tr>
+        <tr><td class="pcode">type</td><td>클릭한 메뉴 타입</td><td>서브페이지 메뉴 (고정)</td></tr>
+        <tr><td class="pcode">category1</td><td>클릭한 메뉴가 속한 카테고리</td><td>비앤빛 / 스마일 / 시력교정 / 퍼스널아이즈 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 메뉴 이름</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>quicklink_menu_click</code> <b>PC · 페이지 내 퀵링크 클릭</b> <span class="trig">— PC - 페이지 내 퀵링크 클릭 시</span></td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 메뉴 이름</td><td>의료진 / 원장단 / A.I. 시스템 등</td></tr>
+        <tr><td class="pcode">category</td><td>클릭한 메뉴가 속한 카테고리</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="grp"><td colspan="3">로그인</td></tr>
+        <tr class="evt"><td colspan="3"><code>login_popup_view</code> <b>로그인 팝업 조회</b> <span class="trig">— 로그인 팝업 조회 시</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>로그인 팝업 시 활성화된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr class="evt"><td colspan="3"><code>login_popup_button_click</code> <b>로그인 팝업 내 버튼 클릭</b> <span class="trig">— 로그인 팝업 내 버튼 클릭 시</span></td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 버튼 이름</td><td>네이버 로그인 / 카카오 로그인 / 구글 로그인 / 기존회원 로그인 / 회원가입 / 아이디·비밀번호 찾기 등</td></tr>
+        <tr class="evt"><td colspan="3"><code>login_page_view</code> <b>로그인 페이지 진입</b> <span class="trig">— 로그인 페이지 진입 시 (기존회원 로그인만)</span></td></tr>
+        <tr class="noparam"><td colspan="3"><span class="muted">— 매개변수 없음</span></td></tr>
+        <tr class="evt"><td colspan="3"><code>login</code> <b>로그인 완료</b> <span class="trig">— 로그인 완료 시 (SNS 로그인 포함)</span></td></tr>
+        <tr><td class="pcode">method</td><td>로그인 완료 시 로그인수단</td><td>네이버 / 카카오 / 구글 / 일반회원</td></tr>
+        <tr class="grp"><td colspan="3">상담신청</td></tr>
+        <tr class="evt"><td colspan="3"><code>online_reserve_submit</code> <b>온라인 예약 신청 완료</b> <span class="trig">— 온라인 예약 신청 제출 완료 시 · 모든 양식 작성 후 제출 버튼을 눌렀을 때 이벤트 기록</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛 / ai</td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (PC 메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>online_reserv_page_view</code> <b>온라인 예약 확인 페이지 진입</b> <span class="trig">— 온라인 예약 확인 페이지 진입 또는 팝업 조회 시</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛</td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (PC 메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>online_reserv_check_complete</code> <b>온라인 예약 확인 완료</b> <span class="trig">— 온라인 예약 확인 완료 시 (ai 포함)</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛</td></tr>
+        <tr class="evt"><td colspan="3"><code>cost_consult_submit</code> <b>비용 상담 신청 완료</b> <span class="trig">— 비용 상담 신청 제출 완료 시 · 온라인 예약 제출 후 예약완료 페이지로 이동했을 때 이벤트 기록</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>비앤빛 / blog</td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (PC 메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>bottom_cost_consult_submit</code> <b>PC · 하단 비용상담 신청 완료</b> <span class="trig">— PC - 하단 비용상담 신청 완료 시</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (PC 메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>event_consult_submit</code> <b>이벤트 페이지 하단 신청 완료</b> <span class="trig">— PC/MO 이벤트 페이지 하단 신청 완료 시 (성공 시)</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목</td><td>비앤빛 30주년 여름 프로모션</td></tr>
+        <tr class="grp"><td colspan="3">Blog 웹사이트</td></tr>
+        <tr class="evt"><td colspan="3"><code>blog_search</code> <b>Blog 웹사이트 내 검색</b> <span class="trig">— Blog 웹사이트 내 검색 실행 시</span></td></tr>
+        <tr><td class="pcode">search_term</td><td>검색한 검색어</td><td>비앤빛</td></tr>
+        <tr class="evt"><td colspan="3"><code>blog_menu_click</code> <b>Blog 웹사이트 내 메뉴 클릭</b> <span class="trig">— Blog 웹사이트 내 메뉴 클릭</span></td></tr>
+        <tr><td class="pcode">title</td><td>클릭한 메뉴 이름</td><td>All / 소개 / 뉴스 / R&amp;D / 이벤트</td></tr>
+        <tr><td class="pcode">category</td><td>클릭한 메뉴가 속한 카테고리</td><td>About us / Doctors / Health / Surgery / A.I.</td></tr>
+        <tr class="evt"><td colspan="3"><code>blog_cost_consult_click</code> <b>Blog · 비용 상담 신청 클릭</b> <span class="trig">— Blog 웹사이트 - 비용 상담 신청 클릭 시</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목 (PC인 경우)</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr class="evt"><td colspan="3"><code>blog_cost_consult_submit</code> <b>Blog · 비용 상담 신청 완료</b> <span class="trig">— Blog 웹사이트 - 비용 상담 신청 완료</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목 (PC인 경우)</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr class="evt"><td colspan="3"><code>blog_home_click</code> <b>Blog · 홈버튼 클릭</b> <span class="trig">— Blog 웹사이트 - 홈버튼 클릭</span></td></tr>
+        <tr class="noparam"><td colspan="3"><span class="muted">— 매개변수 없음</span></td></tr>
+        <tr class="evt"><td colspan="3"><code>blog_sns_click</code> <b>Blog · SNS 이동 클릭</b> <span class="trig">— Blog 웹사이트 - SNS 이동 클릭 시</span></td></tr>
+        <tr><td class="pcode">method</td><td>클릭한 SNS 이름</td><td><span class="muted">—</span></td></tr>
+        <tr class="grp"><td colspan="3">AI 마이크로사이트</td></tr>
+        <tr class="evt"><td colspan="3"><code>ai_section_scroll</code> <b>A.I 웹사이트 섹션 이동</b> <span class="trig">— A.I 웹사이트 섹션 이동 시</span></td></tr>
+        <tr><td class="pcode">section_title</td><td>이동한 섹션 이름</td><td>INTRO / B&amp;VIIT AI / Collecting / Matching / Simulating / Completed / Features / About B&amp;VIIT</td></tr>
+        <tr><td class="pcode">section_no</td><td>이동한 섹션 순서</td><td>1 / 2 / 3 / 4 / 5 / 6 / 7 / 8</td></tr>
+        <tr class="evt"><td colspan="3"><code>online_reserv_submit</code> <b>A.I · 온라인 예약 신청 완료</b> <span class="trig">— A.I 웹사이트 - 온라인 예약 신청 / AI 검사 상담 신청 제출 완료 시</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>ai 또는 AI 검사 상담</td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목 (PC인 경우)</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (PC 메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>online_reserv_page_view</code> <b>A.I · 온라인 예약 페이지 진입</b> <span class="trig">— A.I 웹사이트 - 온라인 예약 페이지 진입 또는 팝업 조회 시</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>ai</td></tr>
+        <tr><td class="pcode">page_title</td><td>활성화된 페이지 제목 (PC인 경우)</td><td>베이직 라식 · 라섹 비쥬라식 등</td></tr>
+        <tr><td class="pcode">main_active_menu</td><td>활성화된 페이지 (PC 메인인 경우)</td><td>비앤빛 / 스마일 / 시력교정 / 노안·백내장 / 커뮤니티</td></tr>
+        <tr class="evt"><td colspan="3"><code>online_reserv_check_complete</code> <b>A.I · 온라인 예약 확인 완료</b> <span class="trig">— A.I 웹사이트 - 온라인 예약 확인 완료 시 (비앤빛 포함)</span> <span class="conv">전환</span></td></tr>
+        <tr><td class="pcode">website_type</td><td>웹사이트 유형</td><td>ai</td></tr>
+        <tr class="evt"><td colspan="3"><code>ai_call_consult_page_view</code> <b>A.I · 전화 상담 신청 페이지 진입</b> <span class="trig">— A.I 웹사이트 - 전화 상담 신청 페이지 진입 시</span></td></tr>
+        <tr class="noparam"><td colspan="3"><span class="muted">— 매개변수 없음</span></td></tr>
+        <tr class="evt"><td colspan="3"><code>ai_call_consult_submit</code> <b>A.I · 전화 상담 신청 완료</b> <span class="trig">— A.I 웹사이트 - 전화 상담 신청 완료 시</span> <span class="conv">전환</span></td></tr>
+        <tr class="noparam"><td colspan="3"><span class="muted">— 매개변수 없음</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="note">
+      <b>사용 메모</b>
+      <strong>구분</strong>(공통·팝업·플로팅/팝업 배너·MO 하단·회원가입·Nav메뉴·로그인·상담신청·Blog·AI 사이트) 단위로 이벤트를 묶었습니다. 각 <strong>이벤트 행</strong>에는 GA4 <code>이벤트명</code>·한글명·트리거를, 아래 <strong>매개변수 행</strong>에는 <code>매개변수</code>·값 설명·예시를 담았습니다. <strong>공통</strong>은 모든 이벤트에 함께 수집되는 사용자 속성입니다.
+    </div>
+
+    <div class="pager">
+      <a class="prev" href="6-seo.html"><div class="dir">← 이전</div><div class="t">05 SEO 실측 자산</div></a>
+      <a class="next" href="index.html"><div class="dir">다음 →</div><div class="t">목차</div></a>
+    </div>
+
+    <div class="foot">비앤빛안과 홈페이지 리뉴얼 · 참고자료 (GA4 이벤트 정의서) · 2026-07-21</div>
+  </main>
+</div>
+</body>
+</html>
