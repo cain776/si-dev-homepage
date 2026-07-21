@@ -30,7 +30,7 @@
   --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
   --sans: 'Pretendard Variable', Pretendard, -apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif;
   --mono: 'SFMono-Regular', ui-monospace, Consolas, monospace;
-  --maxw: 1024px;
+  --maxw: 1200px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
