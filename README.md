@@ -20,7 +20,7 @@ GitHub Pages: **https://cain776.github.io/si-dev-homepage/**
 |------|------|
 | `index.html` | 목차 |
 | `1-overview.html` | 01 사업 개요 |
-| `3-summary.html` | 02 심플 요청사항 |
+| `3-summary.html` | 02 기본 요청사항 |
 | `4-requirements.html` | 03 요구사항 정리 (FR-01~16) |
 | `5-tracking.html` | 04 GA·GTM·광고 트래킹 |
 | `6-seo.html` | 05 SEO 실측 자산 |
