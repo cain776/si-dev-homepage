@@ -27,7 +27,7 @@
   // 등록 계정 — pass 는 비밀번호의 SHA-256 해시
   var USERS = [
     { id: 'admin', role: '관리자', pass: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' }, // 1234
-    { id: 'guest', role: '게스트', pass: '43691bd1f73a8486c6a16b08c6d9b0bf79cfdae03e1d2a21514bf2ce30a0db78' }  // 시그
+    { id: 'guest', role: '게스트', pass: '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' }  // 1234
   ];
 
   /* ── SHA-256 (UTF-8 입력) ───────────────────────── */
